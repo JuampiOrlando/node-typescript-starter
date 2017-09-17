@@ -1,11 +1,17 @@
-import * as express from 'express'
+import * as express from 'express';
+
+// Importamos las rutas
+import EjemploRoute from './routes/ejemplo.route';
+
+let bodyParser = require('body-parser');
 
 class App {
   public express
 
   constructor () {
-    this.express = express()
-    this.mountRoutes()
+    this.express = express();
+    this.express.use(bodyParser.json());
+    this.mountRoutes();
   }
 
   private mountRoutes (): void {
@@ -15,7 +21,9 @@ class App {
         message: 'Hello World!'
       })
     })
-    this.express.use('/', router)
+    this.express.use('/', router);
+    // Rutas especificas
+    this.express.use('/ejemplos', EjemploRoute);
   }
 }
 
